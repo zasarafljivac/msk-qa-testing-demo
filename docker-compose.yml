@@ -15,7 +15,7 @@ services:
       - "19092:19092"
 
   kafka:
-    image: bitnami/kafka:3.9.1
+    image: bitnami/kafka:3.9
     profiles: ["kafka"]
     environment:
       - KAFKA_CFG_NODE_ID=1

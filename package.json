@@ -1,0 +1,13 @@
+{
+  "name": "msk-qa-testing-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Almir Zulic",
+  "license": "MIT",
+  "type": "commonjs"
+}

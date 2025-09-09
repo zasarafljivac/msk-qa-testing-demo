@@ -1,13 +1,17 @@
 {
   "name": "msk-qa-testing-demo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/run.mjs",
+    "start": "node src/consumer.mjs"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4",
+    "mysql2": "^3.14.5",
+    "p-retry": "^7.0.0"
   },
   "keywords": [],
   "author": "Almir Zulic",
-  "license": "MIT",
-  "type": "commonjs"
+  "license": "MIT"
 }

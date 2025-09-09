@@ -8,18 +8,11 @@ services:
       - --overprovisioned
       - --smp=1
       - --memory=512M
-      - --reservation-memory=0M
-      - --set=redpanda.enable_idempotence=true
       - --kafka-addr=PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:19092
-      - --advertised-kafka-addr=PLAINTEXT://redpanda:9092,EXTERNAL://localhost:19092
+      - --advertise-kafka-addr=PLAINTEXT://redpanda:9092,EXTERNAL://localhost:19092
       - --check=false
     ports:
       - "19092:19092"
-    healthcheck:
-      test: ["CMD", "bash", "-lc", "nc -z localhost 9092"]
-      interval: 2s
-      timeout: 1s
-      retries: 60
 
   kafka:
     image: bitnami/kafka:3.9.1
@@ -37,25 +30,14 @@ services:
       - KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR=1
     ports:
       - "9092:9092"
-    healthcheck:
-      test: ["CMD", "bash", "-lc", "kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1"]
-      interval: 5s
-      timeout: 3s
-      retries: 60
-
   mysql:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ordersdb
+      MYSQL_DATABASE: ops
       MYSQL_USER: app
       MYSQL_PASSWORD: app
     ports:
-      - "3306:3306"
+      - "3309:3306"
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uapp", "-papp"]
-      interval: 3s
-      timeout: 3s
-      retries: 60
